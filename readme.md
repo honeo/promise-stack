@@ -1,6 +1,7 @@
 # promise-stack
-Stack of function that returns promise instance.
-
+Stack of function that returns promise instance.  
+[honeo/promise-stack](https://github.com/honeo/promise-stack)  
+[promise-stack](https://www.npmjs.com/package/promise-stack)
 ## Usage
 ```sh
 $ npm i promise-stack
