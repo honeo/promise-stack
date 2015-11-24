@@ -44,7 +44,7 @@ instance.set({
 })
 ```
 ### size()
-Return count queue.
+Return number of queue.
 ### clear()
 Reject() all of queue.
 ### start(), stop()
