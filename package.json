@@ -1,0 +1,29 @@
+{
+  "name": "promise-stack",
+  "version": "1.0.0",
+  "description": "Stack of function that returns promise instance.",
+  "main": "index.js",
+  "scripts": {
+    "test": "babel-node test.js"
+  },
+  "keywords": [
+    "function",
+    "promise",
+    "stack",
+    "queue"
+  ],
+  "author": "honeo",
+  "license": "MIT",
+  "dependencies": {
+    "eventemitter3": "1.1.1"
+  },
+  "devDependencies": {},
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/honeo/promise-stack.git"
+  },
+  "bugs": {
+    "url": "https://github.com/honeo/promise-stack/issues"
+  },
+  "homepage": "https://github.com/honeo/promise-stack#readme"
+}
