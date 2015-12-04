@@ -1,6 +1,6 @@
 {
   "name": "promise-stack",
-  "version": "1.0.0",
+  "version": "1.1.0",
   "description": "Stack of function that returns promise instance.",
   "main": "index.js",
   "scripts": {

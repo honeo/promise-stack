@@ -164,4 +164,4 @@ function createMultiArray(){
 	return obj;
 }
 
-export default PromiseStack;
+module.exports = PromiseStack;

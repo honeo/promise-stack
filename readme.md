@@ -2,12 +2,13 @@
 Stack of function that returns promise instance.  
 [honeo/promise-stack](https://github.com/honeo/promise-stack)  
 [promise-stack](https://www.npmjs.com/package/promise-stack)
+
 ## Usage
 ```sh
 $ npm i promise-stack
 ```
 ```js
-import PS from 'promise-stack';
+const PS = require('promise-stack');
 const ps = new PS();
 
 // example: normal function
