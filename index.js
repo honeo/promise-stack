@@ -11,6 +11,7 @@ class PromiseStack extends EventEmitter {
 		this.enable = true;
 		this.priority = 5;
 		this.running = false;
+		this.interval = 0;
 	}
 
 	/*
@@ -29,6 +30,7 @@ class PromiseStack extends EventEmitter {
 	/*
 		Que実行
 			無効中・実行中・スカったら中止、スカはイベントも
+			実行終了時にintervalが設定されていれば遅延して、なければすぐに再実行する
 	*/
 	exec(){
 		if( this.running || !this.enable ){
@@ -47,27 +49,35 @@ class PromiseStack extends EventEmitter {
 		}).catch( (error)=>{
 			target.reject(error);
 		}).then( ()=>{
+		// finally
 			emit.call(this, 'exec', target);
 			this.running = false;
-			this.exec();
+			typeof this.interval ?
+				this.setTimeout(this.exec.bind(this), interval):
+				this.exec();
 		});
 	}
 
 	/*
 		Que登録
+			引数が不正ならreject
 	*/
-	set(arg){
-		return new Promise( (resolve, reject)=>{
-			const obj = {
-				callback: arg.callback || arg,
-				priority: arg.priority || this.priority,
-				resolve,
-				reject,
-			}
-			this.stack.push(obj, obj.priority);
-			emit.call(this, 'set', obj);
-			this.exec();
-		});
+	set(callback, option={}){
+		if(typeof callback==='function' && option instanceof Object){
+			return new Promise( (resolve, reject)=>{
+				const obj = {
+					callback,
+					priority: option.priority || this.priority,
+					resolve,
+					reject,
+				}
+				this.stack.push(obj, obj.priority);
+				emit.call(this, 'set', obj);
+				this.exec();
+			});
+		}else{
+			return Promise.reject(Error('invalid argument'));
+		}
 	};
 
 	/*

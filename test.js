@@ -1,9 +1,28 @@
 // modules
-import PS from './index';
+const PromiseStack = require('./');
 
 // var
-const ps = new PS();
-let count = 0;
+const ps = new PromiseStack();
+var count = 0;
+
+/// instance.propeties
+// .interval
+ps.interval = 1000;
+let interval_time;
+ps.set(function(){
+	ps.interval = 0;
+	interval_time = Date.now();
+});
+ps.set(function(){
+	ps.interval = 0;
+	if(interval_time+1000 > Date.now()){
+		throw Error('instance.interval failed');
+	}else{
+		console.log('nstance.interval: success');
+	}
+});
+
+//// 以下、全部古いやつ
 
 /// Events
 // キュー登録イベント

@@ -1,9 +1,11 @@
 # promise-stack
-Stack of function that returns promise instance.  
 [honeo/promise-stack](https://github.com/honeo/promise-stack)  
 [promise-stack](https://www.npmjs.com/package/promise-stack)
 
-## Usage
+## なにこれ
+Promiseインスタンスを返す関数スタック。  
+
+## 使い方
 ```sh
 $ npm i promise-stack
 ```
@@ -32,17 +34,15 @@ for(let i=0; i<60; i++){
 ```
 
 ## Method
-### set(function or object)
-Register argument function to stack.  
-return promise instance.
+### set(function [, {...}])
+引数の関数をスタックに積んで対になるPromiseインスタンスを返す。
 ```js
 const promise = instance.set(function);
 ```
 #### option
 ```js
-instance.set({
-	callback: function,
-	priority: number //0...limit of Array
+instance.set(function, {
+	priority: number //0...
 })
 ```
 ### size()
@@ -53,9 +53,12 @@ Reject() all of queue.
 Switch of stack.
 
 ## Properties
+
 ### priority
-Priority of queue, first from lesser.  
-default 5.
+指定のない場合のスタックの優先度、標準は5。
+
+### interval
+スタックの実行間隔ms、標準は0。
 
 ## Event
 [primus/eventemitter3](https://github.com/primus/eventemitter3) is base.
