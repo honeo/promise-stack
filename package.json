@@ -1,6 +1,6 @@
 {
   "name": "promise-stack",
-  "version": "1.2.0",
+  "version": "1.2.1",
   "description": "Promiseインスタンスを返す関数スタック",
   "main": "index.js",
   "scripts": {
