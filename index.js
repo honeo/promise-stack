@@ -80,16 +80,16 @@ class PromiseStack extends EventEmitter {
 		実行終了時にintervalが設定されていれば遅延して、なければすぐに再実行する
 */
 async function exec(){
-	console.log('exec', `running: ${this.running}`, `enable: ${this.enable}`, `size: ${this.size()}`);
+	//console.log('exec', `running: ${this.running}`, `enable: ${this.enable}`, `size: ${this.size()}`);
 	// 既に動いていればスカ
 	if( this.running ){
-		console.log('skip');
+		//console.log('skip');
 		return;
 	}
 	this.running = true;
 
 	while(this.enable && this.size()){
-		console.log('exec-while', `size: ${this.size()}`);
+		//console.log('exec-while', `size: ${this.size()}`);
 		const target = this.stack.shift();
 		await toPromise(target.callback).then( (arg)=>{
 			//console.log('exec-then');
@@ -98,7 +98,7 @@ async function exec(){
 			//console.log('exec-catch');
 			target.reject(error);
 		}).then( ()=>{
-			console.log('exec-then-finaly');
+			//console.log('exec-then-finaly');
 			emit.call(this, 'exec', target);
 		});
 	}
