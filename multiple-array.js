@@ -8,6 +8,9 @@
 function MultipleArray(){
 	const arrArr = [];
 	let _length = 0;
+	this.__defineGetter__('length', function(){
+		return _length;
+	});
 	// 本家と違って引数2は追加する配列番号
 	this.push = function(value, length=5){
 		if( !arrArr[length] ){
@@ -28,4 +31,4 @@ function MultipleArray(){
 	}
 }
 
-return MultipleArray;
+module.exports = MultipleArray;

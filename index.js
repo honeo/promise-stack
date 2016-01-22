@@ -12,7 +12,6 @@ class PromiseStack extends EventEmitter {
 		this.enable = true;
 		this.priority = 5;
 		this.running = false;
-		this.interval = 0;
 	}
 
 	/*
@@ -54,6 +53,7 @@ class PromiseStack extends EventEmitter {
 		Queカウント
 	*/
 	size(){
+		//console.log('size', this.stack.length);
 		return this.stack.length;
 	}
 
@@ -80,25 +80,26 @@ class PromiseStack extends EventEmitter {
 		実行終了時にintervalが設定されていれば遅延して、なければすぐに再実行する
 */
 async function exec(){
+	console.log('exec', `running: ${this.running}`, `enable: ${this.enable}`, `size: ${this.size()}`);
 	// 既に動いていればスカ
 	if( this.running ){
+		console.log('skip');
 		return;
 	}
 	this.running = true;
 
 	while(this.enable && this.size()){
-		await new Promise( (resolve, reject)=>{
-			const target = this.stack.shift();
-			toPromise(target.callback).then( (arg)=>{
-				target.resolve(arg);
-			}).catch( (error)=>{
-				target.reject(error);
-			}).then( ()=>{ // finally
-				emit.call(this, 'exec', target);
-				typeof this.interval ?
-					setTimeout(resolve, interval):
-					resolve;
-			});
+		console.log('exec-while', `size: ${this.size()}`);
+		const target = this.stack.shift();
+		await toPromise(target.callback).then( (arg)=>{
+			//console.log('exec-then');
+			target.resolve(arg);
+		}).catch( (error)=>{
+			//console.log('exec-catch');
+			target.reject(error);
+		}).then( ()=>{
+			console.log('exec-then-finaly');
+			emit.call(this, 'exec', target);
 		});
 	}
 	// finally
@@ -138,8 +139,6 @@ async function exec(){
 function emit(type, target){
 	this.emit(type, {
 		priority: target && target.priority,
-		size: this.size(),
-		target: this,
 		timestamp: Date.now(),
 		type
 	});
