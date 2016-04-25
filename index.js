@@ -97,40 +97,13 @@ async function exec(){
 		}).catch( (error)=>{
 			//console.log('exec-catch');
 			target.reject(error);
-		}).then( ()=>{
-			//console.log('exec-then-finaly');
-			emit.call(this, 'exec', target);
 		});
+		emit.call(this, 'exec', target);
 	}
 	// finally
 	this.running = false;
 	emit.call(this, 'empty');
 }
-// function exec(){
-// 	if( this.running || !this.enable ){
-// 		return;
-// 	}else if( !this.size() ){
-// 		emit.call(this, 'empty');
-// 		return;
-// 	}
-// 	this.running = true;
-//
-// 	const target = this.stack.shift();
-// 	toPromise(
-// 		target.callback
-// 	).then( (arg)=>{
-// 		target.resolve(arg);
-// 	}).catch( (error)=>{
-// 		target.reject(error);
-// 	}).then( ()=>{
-// 	// finally
-// 		emit.call(this, 'exec', target);
-// 		this.running = false;
-// 		typeof this.interval ?
-// 			setTimeout(exec.bind(this), interval):
-// 			exec.call(this);
-// 	});
-// }
 
 /*
 	共通で使うEventEmitter#emitラッパー
@@ -139,7 +112,7 @@ async function exec(){
 function emit(type, target){
 	this.emit(type, {
 		priority: target && target.priority,
-		timestamp: Date.now(),
+		timeStamp: Date.now(),
 		type
 	});
 }

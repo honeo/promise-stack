@@ -59,7 +59,6 @@ Switch of stack.
 ### priority
 指定のない場合のスタックの優先度、標準は5。
 
-### interval
 ## Event
 [primus/eventemitter3](https://github.com/primus/eventemitter3) is base.
 ```js
